@@ -6,12 +6,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -26,16 +25,37 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan("com.kirylshreyter.springexample")
 public class ApplicationConfig {
 
-	@Autowired
-	private Environment environment;
+	@Value("${jdbc.driverClassName}")
+	private String jdbcDriverClassName;
+
+	@Value("${jdbc.url}")
+	private String jdbcUrl;
+
+	@Value("${jdbc.username}")
+	private String jdbcUsername;
+
+	@Value("${jdbc.password}")
+	private String jdbcPassword;
+
+	@Value("${hibernate.dialect}")
+	private String hibernateDialect;
+
+	@Value("${hibernate.show_sql}")
+	private String hibernateShowSql;
+
+	@Value("${hibernate.format_sql}")
+	private String hibernateFormatSql;
+
+	@Value("${hibernate.default_schema}")
+	private String hibernateDefaultSchema;
 
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(environment.getProperty("jdbc.url"));
-		dataSource.setUsername(environment.getProperty("jdbc.username"));
-		dataSource.setPassword(environment.getProperty("jdbc.password"));
+		dataSource.setDriverClassName(jdbcDriverClassName);
+		dataSource.setUrl(jdbcUrl);
+		dataSource.setUsername(jdbcUsername);
+		dataSource.setPassword(jdbcPassword);
 		return dataSource;
 	}
 
@@ -59,10 +79,10 @@ public class ApplicationConfig {
 
 	private Properties jpaProperties() {
 		Properties jpaProperties = new Properties();
-		jpaProperties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
-		jpaProperties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
-		jpaProperties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-		jpaProperties.put("hibernate.default_schema", environment.getRequiredProperty("hibernate.default_schema"));
+		jpaProperties.put("hibernate.dialect", hibernateDialect);
+		jpaProperties.put("hibernate.show_sql", hibernateShowSql);
+		jpaProperties.put("hibernate.format_sql", hibernateFormatSql);
+		jpaProperties.put("hibernate.default_schema", hibernateDefaultSchema);
 		return jpaProperties;
 	}
 

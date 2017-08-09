@@ -9,17 +9,24 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.kirylshreyter.springexample.configuration.ApplicationConfig;
+import com.kirylshreyter.springexample.configuration.WebConfig;
+
 public class AppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
-		webContext.setConfigLocation("com.kirylshreyter.springexample.configuration");
-		webContext.setServletContext(servletContext);
-		servletContext.addListener(new ContextLoaderListener(webContext));
+		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+		rootContext.register(ApplicationConfig.class);
+
+		servletContext.addListener(new ContextLoaderListener(rootContext));
+
+		AnnotationConfigWebApplicationContext servletConfig = new AnnotationConfigWebApplicationContext();
+		servletConfig.register(WebConfig.class);
 
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet",
-				new DispatcherServlet(webContext));
+				new DispatcherServlet(servletConfig));
+
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/*");
 	}

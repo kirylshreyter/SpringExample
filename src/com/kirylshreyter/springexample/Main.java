@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.kirylshreyter.springexample.configuration.ApplicationConfig;
+import com.kirylshreyter.springexample.configuration.initializers.AppInitializer;
 import com.kirylshreyter.springexample.entities.User;
 import com.kirylshreyter.springexample.services.UserService;
 import com.kirylshreyter.springexample.services.impl.UserServiceImpl;
@@ -12,7 +12,7 @@ import com.kirylshreyter.springexample.services.impl.UserServiceImpl;
 public class Main {
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppInitializer.class);
 		UserService userService = context.getBean(UserServiceImpl.class);
 
 		/*
