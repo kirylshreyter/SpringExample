@@ -17,6 +17,7 @@ cd..
 cd..
 xcopy /s tomcat9\webapps\snake\index.html workspace\SpringExample\war\
 xcopy /s tomcat9\webapps\snake\application.js workspace\SpringExample\war\
+xcopy /s tomcat9\webapps\snake\ajax.js workspace\SpringExample\war\
 xcopy /s tomcat9\webapps\snake\main.css workspace\SpringExample\war\
 cd workspace
 cd SpringExample
