@@ -28,8 +28,9 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<User> saveScore(@RequestBody User user) {
+		System.out.println(user);
 		user = userService.save(user);
-		return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 }
