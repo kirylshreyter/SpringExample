@@ -15,11 +15,11 @@ xcopy /s lib war\WEB-INF\lib
 xcopy /s src\application.properties war\WEB-INF\classes
 cd..
 cd..
-xcopy /s tomcat9\webapps\snake\index.html workspace\SpringExample\war\
-xcopy /s tomcat9\webapps\snake\application.js workspace\SpringExample\war\
-xcopy /s tomcat9\webapps\snake\ajax.js workspace\SpringExample\war\
-xcopy /s tomcat9\webapps\snake\main.css workspace\SpringExample\war\
-cd workspace
+xcopy /s "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\snake\index.html" workspaces\SpringExample\war\
+xcopy /s "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\snake\application.js" workspaces\SpringExample\war\
+xcopy /s "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\snake\ajax.js" workspaces\SpringExample\war\
+xcopy /s "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\snake\main.css" workspaces\SpringExample\war\
+cd workspaces
 cd SpringExample
 cd war
 jar -cvf spring.war *
