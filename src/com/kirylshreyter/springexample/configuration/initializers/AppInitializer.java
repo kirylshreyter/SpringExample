@@ -10,7 +10,6 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.kirylshreyter.springexample.configuration.ApplicationConfig;
-import com.kirylshreyter.springexample.configuration.WebConfig;
 
 public class AppInitializer implements WebApplicationInitializer {
 
@@ -18,15 +17,9 @@ public class AppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.register(ApplicationConfig.class);
-
 		servletContext.addListener(new ContextLoaderListener(rootContext));
-
-		AnnotationConfigWebApplicationContext servletConfig = new AnnotationConfigWebApplicationContext();
-		servletConfig.register(WebConfig.class);
-
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet",
-				new DispatcherServlet(servletConfig));
-
+				new DispatcherServlet(rootContext));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/services/*");
 	}
